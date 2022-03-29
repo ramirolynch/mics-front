@@ -36,3 +36,11 @@ ul {
 textarea {
   font-family: Arial;
 }
+
+.showError {
+  display: block;
+  color: red;
+}
+.hideError {
+  display: none;
+}

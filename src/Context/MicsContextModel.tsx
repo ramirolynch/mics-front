@@ -20,21 +20,24 @@ const [venues, setVenues] = useState<VenueFace[]>(()=> {
         const initialValue = JSON.parse(saved);
         return initialValue || [];
     })
-    
-    const [loggedusersarr, setLoggedUser] = useState<User[]>(() => {
-        const saved = localStorage.getItem('logStorage') || '[]';
-        const initialValue = JSON.parse(saved);
-        return initialValue || [];
-})
 
+    const [loggedusers, setLoggedUser] = useState<boolean>(() => {
+        const saved = localStorage.getItem('userLogin') || '';
+        const initialValue = JSON.parse(saved);
+        return initialValue || false;
+    });
+
+    
 
 useEffect(()=> {
     localStorage.setItem('venuesStorage', JSON.stringify(venues));
     localStorage.setItem('userStorage', JSON.stringify(users));
-    localStorage.setItem('logStorage', JSON.stringify(loggedusersarr))
-   
-    }, [venues, users, loggedusersarr])
+    localStorage.setItem('userLogin', JSON.stringify(loggedusers));
 
+
+    }, [venues, users, loggedusers])
+
+    
 
 function addVenue(venue:VenueFace) {
     setVenues([...venues,venue]);
@@ -44,14 +47,16 @@ function addVenue(venue:VenueFace) {
     setUsers([...users,user])
     }
     
-    function logUser(user: User) {
-        setLoggedUser([...loggedusersarr,user])
+   
+    
+    function loginUser() {
+        setLoggedUser(true)
     }
 
 
     return (
 
-        <MicsContext.Provider value={{ venues, users, addVenue, addUser, loggedusersarr, logUser}}>
+        <MicsContext.Provider value={{ venues, users, addVenue, addUser, loggedusers, loginUser}}>
             {children}
         </MicsContext.Provider>  
     );
